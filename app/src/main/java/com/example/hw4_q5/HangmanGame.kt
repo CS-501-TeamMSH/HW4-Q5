@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 class HangmanGame() {
     private val totalGuesses = 6
-    private val wordlist = arrayOf("APPLE", "BANANA", "CHERRY", "GRAPE", "ORANGE")
+    private val wordlist = arrayOf("APPLES", "BANANA", "CHERRY", "GRAPES", "ORANGES")
     var word: String? = null
     private lateinit var guessedIndices: BooleanArray
     private var allowedGuesses = 0
@@ -18,9 +18,10 @@ class HangmanGame() {
         selectRandomWord()
     }
 
-    private fun selectRandomWord() {
+    fun selectRandomWord(): String {
         word = wordlist.random()
         guessedIndices = BooleanArray(word?.length ?: 0)
+        return word.toString()
     }
 
     fun isUsed(char: Char): Boolean {
