@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_hangman" />
 
     <fragment
         android:id="@+id/word"
@@ -22,7 +23,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/hangman"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_word"/>
 
     <fragment
         android:id="@+id/keyboard"
@@ -32,6 +34,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@+id/word"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout="@layout/fragment_keyboard"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

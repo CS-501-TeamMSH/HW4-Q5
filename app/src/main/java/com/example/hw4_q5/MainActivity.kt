@@ -1,17 +1,10 @@
 package com.example.hw4_q5
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import com.example.hw4_q5.HangmanGame
-import com.example.hw4_q5.Hangman
-import com.example.hw4_q5.KeyboardFragment
-import com.example.hw4_q5.Word
-
-
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,15 +49,35 @@ class MainActivity : AppCompatActivity() {
 
     fun play(char: Char) {
         if (hangmanGame.makeGuess(char)) {
+            showToast(getString(R.string.correct))
             var index = word.indexOf(char)
             wordFragment.updateDisplayedWord(char, index)
         } else {
             var num = hangmanGame.getRemainingGuesses()
-            hangmanFragment.setHangman(num)
             if (num == 0) {
-                Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.gameover))
+            } else {
+                showToast(getString(R.string.incorrect))
             }
+            hangmanFragment.setHangman(num)
+
 
         }
     }
+
+    private fun showToast(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Save your state here
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        // Restore your state here
+    }
+
+
 }
