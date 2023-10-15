@@ -34,7 +34,11 @@ class Word : Fragment() {
     }
 
     fun updateDisplayedWord(char: Char, index: Int) {
+        // Replace this later
         val currentText = wordView.text.toString()
+        if (currentText == "_ _ _ _ _ _") {
+            wordView.text = ""
+        }
         if (index in currentText.indices) {
             val updatedText = StringBuilder(currentText)
             updatedText[index] = char

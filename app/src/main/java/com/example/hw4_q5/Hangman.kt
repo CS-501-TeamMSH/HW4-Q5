@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,26 +35,24 @@ class Hangman : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hangman, container, false)
+        val view = inflater.inflate(R.layout.fragment_hangman, container, false)
+        val hangmanImageView = view.findViewById<ImageView>(R.id.hangman)
+        hangmanImageView.setImageResource(R.drawable.hangman1)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Hangman.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Hangman().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun setHangman(imageNumber: Int) {
+        val imageResource = when (imageNumber) {
+            5 -> R.drawable.hangman2
+            4 -> R.drawable.hangman3
+            3 -> R.drawable.hangman4
+            2 -> R.drawable.hangman5
+            1 -> R.drawable.hangman6
+            0 -> R.drawable.hangman7
+            else -> R.drawable.hangman1
+        }
+        val hangmanImageView = view?.findViewById<ImageView>(R.id.hangman)
+        hangmanImageView?.setImageResource(imageResource)
     }
+
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import com.example.hw4_q5.HangmanGame
 import com.example.hw4_q5.Hangman
 import com.example.hw4_q5.KeyboardFragment
@@ -46,8 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         word = hangmanGame.selectRandomWord()
         Log.d("word,", word)
-
-
         // Landscape
         // val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         // val layoutId = if (isLandscape) R.layout.activity_main_landscape else R.layout.activity_main_portrait
@@ -57,8 +56,15 @@ class MainActivity : AppCompatActivity() {
 
     fun play(char: Char) {
         if (hangmanGame.makeGuess(char)) {
-            return
-        }
+            var index = word.indexOf(char)
+            wordFragment.updateDisplayedWord(char, index)
+        } else {
+            var num = hangmanGame.getRemainingGuesses()
+            hangmanFragment.setHangman(num)
+            if (num == 0) {
+                Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
+            }
 
+        }
     }
 }

@@ -36,5 +36,6 @@ class KeyboardFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).play(letter)
         }
+
     }
 }

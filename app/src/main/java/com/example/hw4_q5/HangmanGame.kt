@@ -1,5 +1,6 @@
 package com.example.hw4_q5
 
+import android.widget.Toast
 import kotlin.random.Random
 
 
@@ -8,8 +9,8 @@ class HangmanGame() {
     private val wordlist = arrayOf("APPLES", "BANANA", "CHERRY", "GRAPES", "ORANGES")
     var word: String? = null
     private lateinit var guessedIndices: BooleanArray
-    private var allowedGuesses = 0
-    private var remainingGuesses = 0
+    private var allowedGuesses = 6
+    private var remainingGuesses = 6
     private var usedLetters = ArrayList<Char>()
 
     init {

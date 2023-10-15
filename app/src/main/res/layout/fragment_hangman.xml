@@ -7,7 +7,6 @@
 
     <ImageView
         android:id="@+id/hangman"
-        android:src="@drawable/temphangman"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
