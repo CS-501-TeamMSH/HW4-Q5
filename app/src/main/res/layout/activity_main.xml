@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
     <fragment
+        android:id="@+id/hangman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_keyboard"
+        tools:layout="@layout/fragment_hangman"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <fragment
+        android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_word"
+        app:layout_constraintTop_toBottomOf="@id/hangman"/>
+
+    <fragment
+        android:id="@+id/keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:layout="@layout/fragment_keyboard"
+        app:layout_constraintTop_toBottomOf="@id/word"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,27 @@
         android:orientation="vertical"
         tools:context=".Keyboard">
 
+        <LinearLayout
+            android:id="@+id/textButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/instruction"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+                android:textSize="18dp"
+                android:gravity="center"/>
+        </LinearLayout>
+
 
         <GridLayout
             android:layout_width="match_parent"
@@ -226,26 +247,7 @@
         </GridLayout>
 
 
-        <LinearLayout
-            android:id="@+id/textButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            >
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/instruction"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:layout_margin="5dp"
-                android:textSize="18dp"
-                android:gravity="center"/>
-        </LinearLayout>
 
 
 
