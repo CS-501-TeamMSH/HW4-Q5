@@ -247,11 +247,6 @@
                 android:text="@string/z" />
         </GridLayout>
 
-
-
-
-
-
     </LinearLayout>
 
 </FrameLayout>
