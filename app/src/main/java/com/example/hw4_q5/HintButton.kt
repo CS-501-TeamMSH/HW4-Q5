@@ -12,6 +12,7 @@ import android.widget.TextView
 class HintButton : Fragment() {
     lateinit var hintbutton: Button
     lateinit var hinttext: TextView
+    lateinit var hinttitle: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,18 @@ class HintButton : Fragment() {
         var view = inflater.inflate(R.layout.fragment_hint_button, container, false)
         hintbutton = view.findViewById(R.id.hintbutton)
         hinttext = view.findViewById(R.id.hinttext)
+        hinttitle = view.findViewById(R.id.hinttitle)
+
+
+
+        showHint()
+
+        hintbutton.setOnClickListener{
+            hintbutton.visibility = View.GONE
+            hinttitle.visibility = View.VISIBLE
+            hinttext.visibility = View.VISIBLE
+        }
+
         return view
     }
 
