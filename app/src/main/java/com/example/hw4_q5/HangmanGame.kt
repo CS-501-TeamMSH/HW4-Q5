@@ -25,6 +25,10 @@ class HangmanGame() {
         return word.toString()
     }
 
+    fun getWordLen() : Int?{
+        return word?.length
+    }
+
     fun isUsed(char: Char): Boolean {
         return usedLetters.contains(char)
     }

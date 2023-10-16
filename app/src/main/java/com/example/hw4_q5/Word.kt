@@ -11,7 +11,7 @@ import android.widget.TextView
 
 class Word : Fragment() {
 
-    lateinit var wordView: TextView
+    private lateinit var wordView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,19 +33,17 @@ class Word : Fragment() {
         wordView.text = initialWord
     }
 
-    fun updateDisplayedWord(char: Char, word: String) {
-        val updatedText = StringBuilder()
-        for (i in 0 until word.length) {
-            if (word[i] == char) {
-                updatedText.append(char)
-            } else {
-                updatedText.append(wordView.text[i * 2])
-            }
-            if (i < word.length - 1) {
-                updatedText.append(' ')
-            }
+    fun updateDisplayedWord(char: Char, index: Int) {
+        // Replace this later
+        val currentText = wordView.text.toString()
+        if (currentText == "_ _ _ _ _ _") {
+            wordView.text = ""
         }
-
-        wordView.text = updatedText.toString()
+        if (index in currentText.indices) {
+            val updatedText = StringBuilder(currentText)
+            updatedText[index] = char
+            wordView.text = updatedText.toString()
+        }
     }
+
 }

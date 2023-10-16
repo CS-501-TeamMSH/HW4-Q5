@@ -31,4 +31,12 @@
     <string name="y">Y</string>
     <string name="z">Z</string>
     <string name="instruction">CHOOSE A LETTER</string>
+    <string name="gameover">Game Over</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="correct">Correct</string>
+    <string name="hint">Show Hint</string>
+    <string name="hinttitle">HINT:\u0020</string>
+    <string name="hinttext">It\'s a fruit</string>
+
+
 </resources>
