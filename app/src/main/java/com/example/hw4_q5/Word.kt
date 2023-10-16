@@ -12,6 +12,7 @@ import android.widget.TextView
 class Word : Fragment() {
 
     private lateinit var wordView: TextView
+    var hangmanGame: HangmanGame = HangmanGame()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +25,13 @@ class Word : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_word, container, false)
         wordView = view.findViewById(R.id.wordText)
-        wordView.text = "_ _ _ _ _ _"
+//        wordView.text = "_ _ _ _ _ _"
+        initializeWord(hangmanGame.getWordLen())
         return view
     }
 
-    fun initializeWord(wordLength: Int) {
-        val initialWord = "_".repeat(wordLength)
+    fun initializeWord(wordLength: Int?) {
+        val initialWord = "_ ".repeat(wordLength ?: 0)
         wordView.text = initialWord
     }
 
