@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 
@@ -16,8 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var keyboardFragment: KeyboardFragment
     private lateinit var wordFragment: Word
     private lateinit var hangmanFragment: Hangman
-
-
+    private var gameEnded = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,30 +67,32 @@ class MainActivity : AppCompatActivity() {
                 wordFragment.updateDisplayedWord(char, word)
             }
 
+            // Check if the game is won (all letters guessed)
             if (!wordFragment.wordView.text.toString().contains('_')) {
                 Toast.makeText(this, "You won!", Toast.LENGTH_SHORT).show()
-                val playAgainButton = findViewById<Button>(R.id.playAgainButton)
-                playAgainButton.visibility = View.VISIBLE
-            } else {
-                var num = hangmanGame.getRemainingGuesses()
-                hangmanFragment.setHangman(num)
-                if (num == 0) {
-                    Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
-                    val playAgainButton = findViewById<Button>(R.id.playAgainButton)
-                    playAgainButton.visibility = View.VISIBLE
-                }
+
+                // Disable all letter buttons when the game is won
+                disableAllLetterButtons()
+            }
+        } else {
+            var num = hangmanGame.getRemainingGuesses()
+            hangmanFragment.setHangman(num)
+            if (num == 0) {
+                Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
+                // Disable all letter buttons when the game is over
+                disableAllLetterButtons()
             }
         }
     }
 
-    fun playAgain(view: View) {
-        // Reset the game or perform any necessary actions to start a new game.
-        // For example, you can reset the word, hangman, and keyboardFragment.
-        // Call the relevant reset functions or recreate the fragments and game state.
-
-        // After resetting, you might want to hide the "Play Again" button again.
-        val playAgainButton = findViewById<Button>(R.id.playAgainButton)
-        playAgainButton.visibility = View.GONE
+    private fun disableAllLetterButtons() {
+        val layout = findViewById<View>(R.id.keyboard) as ViewGroup
+        for (i in 0 until layout.childCount) {
+            val child = layout.getChildAt(i)
+            if (child is Button) {
+                child.isEnabled = false
+            }
+        }
     }
 
-    }
+}

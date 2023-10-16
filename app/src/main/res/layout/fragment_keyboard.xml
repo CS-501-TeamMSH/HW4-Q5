@@ -247,6 +247,16 @@
                 android:text="@string/z" />
         </GridLayout>
 
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Again"
+            android:layout_gravity="center_horizontal"
+            android:onClick="playAgain" />
+
+
+
     </LinearLayout>
 
 </FrameLayout>
