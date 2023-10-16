@@ -1,10 +1,13 @@
 package com.example.hw4_q5
 
-import android.content.res.Configuration
+import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -14,9 +17,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var keyboardFragment: KeyboardFragment
     private lateinit var wordFragment: Word
     private lateinit var hangmanFragment: Hangman
+    private var gameEnded = false
 
-
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         word = hangmanGame.selectRandomWord()
         Log.d("word,", word)
+
+        val playAgainButton = findViewById<Button>(R.id.playAgainButton)
+        playAgainButton.visibility = View.GONE
+
         // Landscape
         // val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
         // val layoutId = if (isLandscape) R.layout.activity_main_landscape else R.layout.activity_main_portrait
@@ -49,35 +56,42 @@ class MainActivity : AppCompatActivity() {
 
     fun play(char: Char) {
         if (hangmanGame.makeGuess(char)) {
-            showToast(getString(R.string.correct))
-            var index = word.indexOf(char)
-            wordFragment.updateDisplayedWord(char, index)
+            var indices = mutableListOf<Int>()
+            word.forEachIndexed { index, c ->
+                if (c == char) {
+                    indices.add(index)
+                }
+            }
+
+            for (index in indices) {
+                wordFragment.updateDisplayedWord(char, word)
+            }
+
+            // Check if the game is won (all letters guessed)
+            if (!wordFragment.wordView.text.toString().contains('_')) {
+                Toast.makeText(this, "You won!", Toast.LENGTH_SHORT).show()
+
+                // Disable all letter buttons when the game is won
+                disableAllLetterButtons()
+            }
         } else {
             var num = hangmanGame.getRemainingGuesses()
-            if (num == 0) {
-                showToast(getString(R.string.gameover))
-            } else {
-                showToast(getString(R.string.incorrect))
-            }
             hangmanFragment.setHangman(num)
-
-
+            if (num == 0) {
+                Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
+                // Disable all letter buttons when the game is over
+                disableAllLetterButtons()
+            }
         }
     }
 
-    private fun showToast(string: String) {
-        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+    private fun disableAllLetterButtons() {
+        val layout = findViewById<View>(R.id.keyboard) as ViewGroup
+        for (i in 0 until layout.childCount) {
+            val child = layout.getChildAt(i)
+            if (child is Button) {
+                child.isEnabled = false
+            }
+        }
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // Save your state here
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        // Restore your state here
-    }
-
-
 }
