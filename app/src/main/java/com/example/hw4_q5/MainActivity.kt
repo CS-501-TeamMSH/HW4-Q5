@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var wordFragment: Word
     private lateinit var hangmanFragment: Hangman
     private var gameEnded = false
+    private var hintButtonClicked = 0
+    private var vowelsDisabled = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,14 +47,69 @@ class MainActivity : AppCompatActivity() {
         Log.d("word,", word)
 
         val playAgainButton = findViewById<Button>(R.id.playAgainButton)
-        playAgainButton.visibility = View.GONE
+        playAgainButton.isEnabled = false
 
-        // Landscape
-        // val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-        // val layoutId = if (isLandscape) R.layout.activity_main_landscape else R.layout.activity_main_portrait
-        // setContentView(layoutId)
 
+        playAgainButton.setOnClickListener() {
+            playAgainButton.isEnabled = true
+            hangmanGame = HangmanGame()
+            wordFragment.resetDisplayedWord(word)
+            hangmanFragment.resetHangman()
+
+            // Generate a new random word
+            word = hangmanGame.selectRandomWord()
+            Log.d("word", word)
+
+        }
+
+        val showHintButton = findViewById<Button>(R.id.showHintButton)
     }
+    fun showHint(view: View) {
+        if (gameEnded) {
+            Toast.makeText(this, "Game has ended. Press Play Again to start a new game.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        hintButtonClicked++
+
+        when (hintButtonClicked) {
+            1 -> showHintMessage()
+            2 -> disableHalfLetters()
+            3 -> revealVowels()
+            else -> Toast.makeText(this, "Hint not available", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun showHintMessage() {
+        Toast.makeText(this, "Hint: This is a hint message.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun disableHalfLetters() {
+        if (vowelsDisabled) {
+            Toast.makeText(this, "Vowels are already disabled.", Toast.LENGTH_SHORT).show()
+        } else {
+            // Implement code to disable half of the remaining letters not in the word
+            // Be sure to disable all the vowel buttons
+            disableVowelButtons()
+            vowelsDisabled = true
+        }
+    }
+
+    private fun revealVowels() {
+        if (vowelsDisabled) {
+            Toast.makeText(this, "Vowels are already disabled.", Toast.LENGTH_SHORT).show()
+        } else {
+            // Implement code to reveal all the vowels
+            // Be sure to disable all the vowel buttons
+            disableVowelButtons()
+        }
+    }
+
+    private fun disableVowelButtons() {
+        // Implement code to disable all vowel buttons
+    }
+
+
+
 
     fun play(char: Char) {
         if (hangmanGame.makeGuess(char)) {
@@ -70,15 +127,24 @@ class MainActivity : AppCompatActivity() {
             // Check if the game is won (all letters guessed)
             if (!wordFragment.wordView.text.toString().contains('_')) {
                 Toast.makeText(this, "You won!", Toast.LENGTH_SHORT).show()
+                gameEnded = true
+                // Show the "Play Again" button and hide the "Show Hint" button
+                findViewById<Button>(R.id.playAgainButton).visibility = View.VISIBLE
+                findViewById<Button>(R.id.showHintButton).visibility = View.GONE
 
                 // Disable all letter buttons when the game is won
                 disableAllLetterButtons()
             }
+
         } else {
             var num = hangmanGame.getRemainingGuesses()
             hangmanFragment.setHangman(num)
             if (num == 0) {
                 Toast.makeText(this, "Game Over", Toast.LENGTH_SHORT).show()
+                gameEnded = true
+                // Show the "Play Again" button and hide the "Show Hint" button
+                findViewById<Button>(R.id.playAgainButton).visibility = View.VISIBLE
+                findViewById<Button>(R.id.showHintButton).visibility = View.GONE
                 // Disable all letter buttons when the game is over
                 disableAllLetterButtons()
             }
@@ -94,4 +160,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }

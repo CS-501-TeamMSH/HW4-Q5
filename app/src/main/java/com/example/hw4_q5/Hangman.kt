@@ -55,4 +55,9 @@ class Hangman : Fragment() {
         hangmanImageView?.setImageResource(imageResource)
     }
 
+    fun resetHangman() {
+        val hangmanImageView = view?.findViewById<ImageView>(R.id.hangman)
+        hangmanImageView?.setImageResource(R.drawable.hangman1)
+    }
+
 }

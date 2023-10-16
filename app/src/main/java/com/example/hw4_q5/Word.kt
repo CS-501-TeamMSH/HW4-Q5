@@ -47,4 +47,8 @@ class Word : Fragment() {
 
         wordView.text = updatedText.toString()
     }
+
+    fun resetDisplayedWord(word: String) {
+
+    }
 }

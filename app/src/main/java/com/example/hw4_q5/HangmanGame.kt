@@ -50,4 +50,5 @@ class HangmanGame() {
     fun getRemainingGuesses(): Int {
         return remainingGuesses
     }
+
 }
