@@ -1,5 +1,6 @@
 package com.example.hw4_q5
 
+import android.os.Parcelable
 import android.widget.Toast
 import kotlin.random.Random
 
@@ -16,7 +17,6 @@ class HangmanGame() {
     init {
         allowedGuesses = totalGuesses
         remainingGuesses = allowedGuesses
-        selectRandomWord()
     }
 
     fun selectRandomWord(): String {
@@ -28,6 +28,7 @@ class HangmanGame() {
     fun getWordLen() : Int?{
         return word?.length
     }
+
 
     fun isUsed(char: Char): Boolean {
         return usedLetters.contains(char)
@@ -51,4 +52,7 @@ class HangmanGame() {
         return remainingGuesses
     }
 
+    fun setRemainingGuesses(num: Int) {
+        remainingGuesses = num
+    }
 }

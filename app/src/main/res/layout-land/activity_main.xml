@@ -16,28 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_hangman" />
 
-    <fragment
-        android:id="@+id/word"
-        android:name="com.example.hw4_q5.Word"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/hangman"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="60dp"
-        app:layout_constraintHorizontal_weight="5"
-        tools:layout="@layout/fragment_word" />
-
-    <fragment
-        android:id="@+id/hint"
-        android:name="com.example.hw4_q5.HintButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/keyboard"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="20dp"
-        app:layout_constraintHorizontal_weight="5"
-        tools:layout="@layout/fragment_hint_button" />
 
     <fragment
         android:id="@+id/keyboard"
@@ -50,8 +28,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_keyboard" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

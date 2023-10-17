@@ -6,27 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Hangman.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Hangman : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var wordView: TextView
+
+    private var currentImageResource: Int = R.drawable.hangman1
+    private var displayedWord: String = "_ _ _ _ _ _"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        if (savedInstanceState != null) {
+            currentImageResource = savedInstanceState.getInt("currentImageResource")
+            displayedWord = savedInstanceState.getString("displayedWord") ?: "_ _ _ _ _ _"
         }
     }
 
@@ -34,15 +28,23 @@ class Hangman : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_hangman, container, false)
         val hangmanImageView = view.findViewById<ImageView>(R.id.hangman)
-        hangmanImageView.setImageResource(R.drawable.hangman1)
+        hangmanImageView.setImageResource(currentImageResource)
+        wordView = view.findViewById(R.id.wordText)
+        wordView.text = displayedWord
         return view
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt("currentImageResource", currentImageResource)
+        outState.putString("displayedWord", displayedWord)
+    }
+
     fun setHangman(imageNumber: Int) {
-        val imageResource = when (imageNumber) {
+        currentImageResource = when (imageNumber) {
             5 -> R.drawable.hangman2
             4 -> R.drawable.hangman3
             3 -> R.drawable.hangman4
@@ -52,12 +54,27 @@ class Hangman : Fragment() {
             else -> R.drawable.hangman1
         }
         val hangmanImageView = view?.findViewById<ImageView>(R.id.hangman)
-        hangmanImageView?.setImageResource(imageResource)
+        hangmanImageView?.setImageResource(currentImageResource)
     }
 
-    fun resetHangman() {
-        val hangmanImageView = view?.findViewById<ImageView>(R.id.hangman)
-        hangmanImageView?.setImageResource(R.drawable.hangman1)
+    fun initializeWord(wordLength: Int) {
+        displayedWord = "_ ".repeat(wordLength)
+        wordView.text = displayedWord
     }
 
+    fun updateDisplayedWord(char: Char, word: String) {
+        val currentText = wordView.text.toString()
+        val updatedText = StringBuilder()
+
+        for (i in word.indices) {
+            if (word[i] == char) {
+                updatedText.append(char)
+            } else {
+                updatedText.append(currentText[i])
+            }
+        }
+
+        displayedWord = updatedText.toString()
+        wordView.text = displayedWord
+    }
 }

@@ -37,6 +37,7 @@
     <string name="hint">Show Hint</string>
     <string name="hinttitle">HINT:\u0020</string>
     <string name="hinttext">It\'s a fruit</string>
+    <string name="play_again">Play Again</string>
 
 
 </resources>
