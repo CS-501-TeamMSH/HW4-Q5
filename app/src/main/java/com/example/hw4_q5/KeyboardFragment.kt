@@ -1,18 +1,22 @@
 package com.example.hw4_q5
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+//import android.widget.Toast
 
 class KeyboardFragment : Fragment() {
 
     private lateinit var hintbutton: Button
     private lateinit var hinttext: TextView
     private var isHintVisible: Boolean = false
+
 
 
     override fun onCreateView(
@@ -40,7 +44,12 @@ class KeyboardFragment : Fragment() {
 
         hintbutton = view.findViewById(R.id.hintbutton)
         hinttext = view.findViewById(R.id.hinttext)
-        hintbutton.setOnClickListener{showHint()}
+        hintbutton.setOnClickListener{
+            if (activity is MainActivity) {
+                (activity as MainActivity).showHint()
+            }
+        }
+
 
         val playAgain = view.findViewById<Button>(R.id.playAgainButton)
         playAgain.setOnClickListener{reset(playAgain)}
@@ -72,16 +81,15 @@ class KeyboardFragment : Fragment() {
 
     }
 
-    private fun showHint () {
-        hinttext.setText(R.string.hinttext)
-    }
+
 
     private fun reset(button: Button) {
         (activity as MainActivity).resetGame()
     }
 
 
-    private fun disableButton(button: Button) {
+
+    fun disableButton(button: Button) {
         button.isClickable = false
     }
 
