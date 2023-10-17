@@ -145,6 +145,8 @@ class MainActivity : AppCompatActivity() {
 
     fun resetGame() {
         hangmanFragment.setHangman(6)
+        hangmanFragment.initializeWord(word.length)
+        keyboardFragment = KeyboardFragment()
         hangmanGame = HangmanGame()
         word = hangmanGame.selectRandomWord()
 //        hangmanFragment.initializeWord(word)
